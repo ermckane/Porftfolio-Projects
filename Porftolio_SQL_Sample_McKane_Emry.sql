@@ -283,36 +283,3 @@ ORDER BY A_Name_1, Location, S_Year_1
 ;
 END
 ;
-
-/*
-Exec Procedure
-*/
-
-EXEC Pct_Diff_Yearly
-;
-
-/*
-WITH 
-Filter_2 AS
-  (SELECT 
-         Account_Name
-	    ,Location
-	    ,SUBSTRING(Revenue_Month,1,4) AS S_Year
-	    ,ROUND(SUM(Current_Charges),2) AS Total_Charges
-   FROM Electric_Consumption
-   WHERE Location IS NOT NULL
-     and Current_Charges > 0
-   GROUP BY Account_Name, Location, SUBSTRING(Revenue_Month,1,4)
-  )
-SELECT
-      Account_Name
-	  ,Location
-	  ,S_Year
-	  ,Total_Charges
-	  ,((Total_Charges - LAG(Total_Charges,1) OVER( PARTITION BY Account_Name, Location ORDER BY Location, S_Year))
-	     / LAG(Total_Charges,1) OVER (PARTITION BY Account_Name, Location ORDER BY Location, S_Year)) 
-		 * 100 as Pct_Diff
-FROM Filter_2
-ORDER BY Account_Name, Location, S_Year
-;
-*/
