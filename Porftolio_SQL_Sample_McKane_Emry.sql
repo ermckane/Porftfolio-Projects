@@ -2,11 +2,11 @@
 --the data in different ways. 
 
 
-use sql_practice
-go
+USE sql_practice
+GO
 
-select *
-from Electric_Consumption
+SELECT *
+FROM Electric_Consumption
 ;
 
 
@@ -37,8 +37,8 @@ AS
 	    ,ROUND(SUM(Current_Charges),2) AS Yearly_Total
   FROM dbo.Electric_Consumption
   WHERE location IS NOT NULL
-    and Current_Charges > 0
-    and DATENAME(YEAR, Service_End_Date) != 2021
+    AND Current_Charges > 0
+    AND DATENAME(YEAR, Service_End_Date) != 2021
   GROUP BY Account_Name, DATEPART(YEAR, Service_End_Date)
 )
 
@@ -65,8 +65,8 @@ AS
 	    ,SUM(Consumption_KWH) AS Monthly_Consumption_KWH
   FROM dbo.Electric_Consumption
   WHERE location IS NOT NULL
-    and Current_Charges > 0
-    and DATENAME(YEAR, Service_End_Date) != 2021
+    AND Current_Charges > 0
+    AND DATENAME(YEAR, Service_End_Date) != 2021
   GROUP BY Account_name, Location, DATEPART(YEAR, Service_End_Date), DATEPART(MONTH, Service_End_Date)
 )
 
@@ -95,8 +95,8 @@ AS
 	    ,SUM(Consumption_KWH) AS Monthly_Consumption_KWH
   FROM dbo.Electric_Consumption
   WHERE location IS NOT NULL
-    and Current_Charges > 0
-    and DATENAME(YEAR, Service_End_Date) != 2021
+    AND Current_Charges > 0
+    AND DATENAME(YEAR, Service_End_Date) != 2021
   GROUP BY Account_name, Location, DATEPART(YEAR, Service_End_Date), DATEPART(MONTH, Service_End_Date)
 )
 
@@ -123,8 +123,8 @@ SELECT
 	   ROUND(AVG(Current_Charges), 2) AS Avg_Per_Month
 FROM dbo.Electric_Consumption
 WHERE location IS NOT NULL
-  and Current_Charges > 0
-  and DATENAME(YEAR, Service_End_Date) != 2021
+  AND Current_Charges > 0
+  AND DATENAME(YEAR, Service_End_Date) != 2021
 GROUP BY Account_Name, Location, DATEPART(YEAR, Service_End_Date)
 ORDER BY Account_name, Location, DATEPART(YEAR, Service_End_Date)
 ;
@@ -144,7 +144,7 @@ SELECT
 	     * 100, 2) AS Pct_diff
 FROM dbo.Electric_Consumption
 WHERE location IS NOT NULL
-  and Current_Charges > 0
+  AND Current_Charges > 0
 GROUP BY Account_Name, Location, DATEPART(YEAR, Service_End_Date)
 ORDER BY Account_name, Location, DATEPART(YEAR, Service_End_Date)
 ;
@@ -162,8 +162,8 @@ Filter_1 AS
 	    ,ROUND(SUM(Current_Charges),2) AS Total_Charges
    FROM Electric_Consumption
    WHERE Location IS NOT NULL
-     and Current_Charges > 0
-	 and DATENAME(YEAR, Service_End_Date) != 2021
+     AND Current_Charges > 0
+     AND DATENAME(YEAR, Service_End_Date) != 2021
    GROUP BY Account_Name, Location, DATENAME(YEAR, Service_End_Date)
   )
 SELECT
@@ -193,8 +193,8 @@ Filter_1 AS
 	    ,ROUND(SUM(Current_Charges),2) AS Total_Charges_1 
    FROM Electric_Consumption
    WHERE Location IS NOT NULL
-     and Current_Charges > 0
-	 and DATENAME(YEAR, Service_End_Date) != 2021
+    AND Current_Charges > 0
+    AND DATENAME(YEAR, Service_End_Date) != 2021
    GROUP BY Account_Name, Location, DATENAME(YEAR, Service_End_Date)
   ),
 
@@ -206,8 +206,8 @@ Filter_2 AS
 	    ,ROUND(SUM(Current_Charges),2) AS Total_Charges_2
    FROM Electric_Consumption
    WHERE Location IS NOT NULL
-     and Current_Charges > 0
-	 and SUBSTRING(Revenue_Month,1,4) != 2021
+     AND Current_Charges > 0
+     AND SUBSTRING(Revenue_Month,1,4) != 2021
    GROUP BY Account_Name, Location, SUBSTRING(Revenue_Month,1,4)
   )
 SELECT A_Name_1 AS Account_name
@@ -247,8 +247,8 @@ Filter_1 AS
 	    ,ROUND(SUM(Current_Charges),2) AS Total_Charges_1
    FROM Electric_Consumption
    WHERE Location IS NOT NULL
-     and Current_Charges > 0
-	 and DATENAME(YEAR, Service_End_Date) != 2021
+     AND Current_Charges > 0
+     AND SUBSTRING(Revenue_Month,1,4) != 2021
    GROUP BY Account_Name, Location, DATENAME(YEAR, Service_End_Date)
   ),
 
@@ -260,8 +260,8 @@ Filter_2 AS
 	    ,ROUND(SUM(Current_Charges),2) AS Total_Charges_2
    FROM Electric_Consumption
    WHERE Location IS NOT NULL
-     and Current_Charges > 0
-	 and SUBSTRING(Revenue_Month,1,4) != 2021
+     AND Current_Charges > 0
+     AND SUBSTRING(Revenue_Month,1,4) != 2021
    GROUP BY Account_Name, Location, SUBSTRING(Revenue_Month,1,4)
   )
 SELECT A_Name_1 as Account_name
